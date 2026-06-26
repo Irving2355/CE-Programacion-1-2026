@@ -1,3 +1,0 @@
-Hola mundo
-Curso especial Prog 1
-Se uso la libreria fstream

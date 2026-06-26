@@ -1,4 +1,0 @@
-Nombre: maria
-Edad: 40
-Promedio: 6
-Nombre: Jose
