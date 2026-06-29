@@ -84,63 +84,67 @@ void mostrarPartida(Partida variableInterna){
 
 int main(){
     srand(time(0));
+    Partida partida;
 
-    int suma, punto;
-    int saldo, apuesta;
-    EstadoPartida estado;
+    partida = crearPartida();
 
-    punto = 0;
-    //sigueJugando = 1;
-    estado = NUEVA;
-    saldo = 1000;
+    int suma;
+    /*int suma, punto, saldo, apuesta;
+    EstadoPartida estado;*/
 
-    apuesta = pedirApuesta(saldo);
+    //punto = 0;
+    //estado = NUEVA;
+    //saldo = 1000;
+
+    //apuesta = pedirApuesta(saldo);
+    partida.apuesta = pedirApuesta(partida.saldo);
 
     cout << "Primer lanzamiento\n";
     suma = tirarDados();
     
     if(suma == 7 || suma == 11){
-        saldo = saldo + apuesta;
-        cout << "Ganaste $"<<apuesta<<endl;
+        //saldo = saldo + apuetsa;
+        partida.saldo = partida.saldo + partida.apuesta;
+        cout << "Ganaste $"<<partida.apuesta<<endl;
         //sigueJugando = 0;
-        estado = GANO;
+        partida.estado = GANO;
     }else if(suma == 2 || suma == 3 || suma == 12){
-        saldo = saldo - apuesta;
-        cout << "Perdiste $"<<apuesta<<endl;
+        partida.saldo = partida.saldo - partida.apuesta;
+        cout << "Perdiste $"<<partida.apuesta<<endl;
         //sigueJugando = 2;
-        estado = PERDIO;
+        partida.estado = PERDIO;
     }else{
         cout << "Punto\n";
-        //sigueJugando = 1;
-        estado = JUGANDO_PUNTO;
-        punto = suma;
+        partida.estado = JUGANDO_PUNTO;
+        partida.punto = suma;
     }
 
-    while(/*sigueJugando == 1*/ estado = JUGANDO_PUNTO){
-        cout << "\nDebes sacar " << punto <<" Antes de sacar 7 "<< endl;
+    while(/*sigueJugando == 1*/ partida.estado = JUGANDO_PUNTO){
+        cout << "\nDebes sacar " << partida.punto <<" Antes de sacar 7 "<< endl;
         cout << "Presiona Enter para tirar...";
         cin.ignore();
         cin.get();
 
         suma = tirarDados();
 
-        if(suma == punto){
-            saldo = saldo + apuesta;
+        if(suma == partida.punto){
+            partida.saldo = partida.saldo + partida.apuesta;
             cout << "Ganaste\n";
             //sigueJugando = 0;
-            estado = GANO;
+            partida.estado = GANO;
         }else if(suma == 7){
-            saldo -= apuesta;
+            partida.saldo -= partida.apuesta;
             //saldo = saldo - apuesta;
             cout << "Perdiste\n";
             //sigueJugando = 0;
-            estado = PERDIO;
+            partida.estado = PERDIO;
         }else{
             cout << "Sigue la partida";
-            estado = JUGANDO_PUNTO;
+            partida.estado = JUGANDO_PUNTO;
         }
     }
 
-    cout << "\nSaldo final: $"<<saldo<<endl;
+    //cout << "\nSaldo final: $"<<saldo<<endl;
+    mostrarPartida(partida);
     return 0;
 }
