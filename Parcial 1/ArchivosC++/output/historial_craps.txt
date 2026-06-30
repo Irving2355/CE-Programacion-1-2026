@@ -1,0 +1,2 @@
+Jugador: Juan Rondas: 1 Apuesta: 300 Saldo final: 1300 Resultado: GANO
+Jugador: Juan Rondas: 1 Apuesta: 500 Saldo final: 1500 Resultado: GANO

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 using namespace std;
 
@@ -82,6 +83,27 @@ void mostrarPartida(Partida variableInterna){
     cout << "Rondas: " << variableInterna.rondas << endl;
 }
 
+void guardarHistorial(Partida partida){
+    ofstream archivo;
+
+    archivo.open("historial_craps.txt", ios::app);
+
+    if(archivo.is_open()){
+        archivo << "Jugador: " << partida.jugador
+        << " Rondas: " << partida.rondas
+        << " Apuesta: " << partida.apuesta
+        << " Saldo final: " << partida.saldo;
+
+        if(partida.estado == GANO){
+            archivo << " Resultado: GANO";
+        }else if(partida.estado == PERDIO){
+            archivo << " Resultado: PERDIO";
+        }
+        archivo << endl;
+        archivo.close();
+    }
+}
+
 int main(){
     srand(time(0));
     Partida partida;
@@ -101,6 +123,7 @@ int main(){
 
     cout << "Primer lanzamiento\n";
     suma = tirarDados();
+    partida.rondas += 1; 
     
     if(suma == 7 || suma == 11){
         //saldo = saldo + apuetsa;
@@ -108,36 +131,41 @@ int main(){
         cout << "Ganaste $"<<partida.apuesta<<endl;
         //sigueJugando = 0;
         partida.estado = GANO;
+        guardarHistorial(partida);
     }else if(suma == 2 || suma == 3 || suma == 12){
         partida.saldo = partida.saldo - partida.apuesta;
         cout << "Perdiste $"<<partida.apuesta<<endl;
         //sigueJugando = 2;
         partida.estado = PERDIO;
+        guardarHistorial(partida);
     }else{
         cout << "Punto\n";
         partida.estado = JUGANDO_PUNTO;
         partida.punto = suma;
     }
 
-    while(/*sigueJugando == 1*/ partida.estado = JUGANDO_PUNTO){
+    while(/*sigueJugando == 1*/ partida.estado == JUGANDO_PUNTO){
         cout << "\nDebes sacar " << partida.punto <<" Antes de sacar 7 "<< endl;
         cout << "Presiona Enter para tirar...";
         cin.ignore();
         cin.get();
 
         suma = tirarDados();
+        partida.rondas += 1;
 
         if(suma == partida.punto){
             partida.saldo = partida.saldo + partida.apuesta;
             cout << "Ganaste\n";
             //sigueJugando = 0;
             partida.estado = GANO;
+            guardarHistorial(partida);
         }else if(suma == 7){
             partida.saldo -= partida.apuesta;
             //saldo = saldo - apuesta;
             cout << "Perdiste\n";
             //sigueJugando = 0;
             partida.estado = PERDIO;
+            guardarHistorial(partida);
         }else{
             cout << "Sigue la partida";
             partida.estado = JUGANDO_PUNTO;
