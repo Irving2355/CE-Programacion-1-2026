@@ -11,12 +11,12 @@ struct Producto{
 
 int main(){
     //para usarlos de ecritura y lectura
-    fstream archivo("datos.dat", ios::in | ios::out | ios::binary); 
+    //fstream archivo("datos.dat", ios::in | ios::out | ios::binary); 
 
     Producto producto,producto2;
-    producto = {123, "coca", 24, 48};
+    producto = {127, "delawerpunch", 24, 48};
 
-    ofstream archivo("producto.dat", ios::binary);
+    ofstream archivo("producto.dat", ios::binary | ios::app);
     
     archivo.write(reinterpret_cast<const char*>(&producto), sizeof(producto));
 
