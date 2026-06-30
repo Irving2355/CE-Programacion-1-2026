@@ -104,6 +104,37 @@ void guardarHistorial(Partida partida){
     }
 }
 
+void guardarPartidaBinaria(Partida partida){
+    ofstream archivo;
+
+    archivo.open("partida_craps.bin", ios::binary);
+
+    if(archivo.is_open()){
+        archivo.write(reinterpret_cast<const char*>(&partida), sizeof(Partida));
+        archivo.close();
+        cout << "Partida guradada...\n";
+    }
+}
+
+Partida cargarPartidaBinaria(){
+    ifstream archivo;
+    Partida partida;
+
+    archivo.open("partida_craps.bin", ios::binary);
+
+    if(archivo.is_open()){
+        archivo.read(reinterpret_cast<char *>(&partida), sizeof(Partida));
+        archivo.close();
+        cout << "Partida cargada...\n";
+    }
+
+    return partida;
+}
+
+void borrarPartida(){
+    remove("partida_craps.bin");
+}
+
 int main(){
     srand(time(0));
     Partida partida;
