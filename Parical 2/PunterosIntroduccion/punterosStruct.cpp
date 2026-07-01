@@ -38,5 +38,11 @@ int main(){
     cout << "tam x: " << sizeof(x) << endl;
     cout << "tam *p: " << sizeof(p) << endl;
     cout << "Dire x: " << &x << endl;
+
+    cout << "\n\nImpresion usando la segunda forma\n";
+    cout << "ID: " << ptrAlumno->id << endl;
+    cout << "Nombre: " << ptrAlumno->nombre << endl;
+    cout << "Promedio: " << ptrAlumno->promedio << endl;
+
     return 0;
 }
