@@ -14,7 +14,6 @@ int main(){
     int y = 20;
 
     int aux;
-
     aux = x;
     x = y;
     y = aux;
