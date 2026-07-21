@@ -17,6 +17,7 @@ int main(){
     aux = x;
     x = y;
     y = aux;
+    
     swap(x,y);
 
     cout << "X: " << x << " Y: " << y << endl;
